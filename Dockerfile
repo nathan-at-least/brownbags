@@ -6,6 +6,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
         git \
         python3-pip
 
+RUN pip3 install Pygments
 RUN pip3 install git+https://github.com/nyergler/hieroglyph#egg=hieroglyph
 WORKDIR /project
 CMD make slides

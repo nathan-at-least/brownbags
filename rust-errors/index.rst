@@ -3,12 +3,41 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to rust error handling's documentation!
-===============================================
+rust error handling
+===================
+
+*Nathan Wilcox* • 2020-06-01
+
+**Electric Coin Company**
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+rust basics
+---------------
+
+Hello World
+~~~~~~~~~~~
+
+.. code-block:: rust
+
+   fn main() {
+      println!("Hello World!");
+   }
+
+Language Goals
+~~~~~~~~~~~~~~
+
+- high-level abstractions with "0 cost".
+- expressive static type system.
+- strong memory safety.
+- can do low-level / systems / performant applications.
+- friendly community, great toolchain, + the rustacean!
+
+.. image:: rustacean-flat-happy.png
+   :scale: 30%
+   :align: right
 
 
 

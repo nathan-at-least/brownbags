@@ -88,6 +88,63 @@ Rust style would be expression oriented:
 
    let x = if use_an_odd { 3 } else { 8 };
 
+Static Types and Inference
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Every variable binding in rust has a known unambiguous type:
+
+.. code-block:: rust
+
+   let x: bool = false;
+
+The compiler uses `type inference` so that you frequently can omit types:
+
+.. code-block:: rust
+
+   let x = false;
+
+Top-level functions must always be written with explicit types:
+
+.. code-block:: rust
+
+   fn add_unsigned_32bits(a: u32, b: u32) -> u32 { a + b }
+
+
+Concrete vs Abstract Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some types are `concrete`, some `abstract`.
+
+Every binding must have a known unambiguous `concrete type`.
+
+Examples:
+
+- ``i32`` (signed 32bit int)
+- ``String``
+- ``File``
+- ``bool``
+
+Abstract Types
+~~~~~~~~~~~~~~
+
+These represent common interfaces to related concrete types.
+
+Examples:
+
+- ``Vec`` - a sequence of items in contiguous memory
+- ``Fn`` - a kind of function
+- ``Option`` - allows for "value not present" logic
+- ``Result`` - our star for this presentation series
+
+Instantiating Abstract Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By supplying `type parameters` and other constraints, abstract types are instantiated to concrete types:
+
+- ``Vec<String>``
+- ``Fn(u32, u32) -> u32``
+- ``Option<File>``
+
 
 Indices and tables
 ==================

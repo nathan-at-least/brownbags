@@ -8,4 +8,4 @@ RUN DEBIAN_FRONTEND=noninteractive \
 
 RUN pip3 install git+https://github.com/nyergler/hieroglyph#egg=hieroglyph
 WORKDIR /project
-CMD hieroglyph-quickstart
+CMD make slides

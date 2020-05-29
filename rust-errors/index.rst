@@ -10,6 +10,9 @@ rust error handling
 
 **Electric Coin Company**
 
+.. image:: by-sa.png
+   :scale: 20%
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

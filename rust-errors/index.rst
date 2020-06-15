@@ -6,7 +6,7 @@
 rust error handling
 ===================
 
-*Nathan Wilcox* • 2020-06-01
+*Nathan Wilcox* • 2020-06-15
 
 **Electric Coin Company**
 
@@ -53,8 +53,28 @@ Useful Setup
 
 .. _`rustup.rs`: https://rustup.rs
 
-rust basics
------------
+rust crash course
+-----------------
+
+What We Cover
+~~~~~~~~~~~~~
+
+- basic syntax
+- static typing with inference
+- concrete and abstract types
+- user defined types: structs and enums
+- methods and associated functions
+- matching enums
+- defining `Option` and `Result`
+
+What We Exclude
+~~~~~~~~~~~~~~~
+
+- memory management
+- traits
+- probably a bunch of other stuff
+
+IMO, abstract types, memory management, and traits are likely to be the three big learning curves for Javascript / Python -like background.
 
 A Taste of Syntax
 ~~~~~~~~~~~~~~~~~
@@ -166,26 +186,6 @@ User-defined Types - Structs
       height: f64,
     }
       
-User-defined Types - Enums
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: rust
-
-    enum Boolish {
-      Yes,
-      No,
-    }
-
-    enum Shape {
-      Circle(Circle),
-      Rectangle(Rectangle),
-    }
-
-    enum StyleElement {
-      Font(String),
-      RGB(u8, u8, u8),
-    }
-
 User-defined Types - Methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -226,6 +226,114 @@ Using our type:
     let p3 = p1.add_to(&p2);
 
     assert!(p3.x == 4 && p3.y == 6);
+
+Some Basic Methods for Later
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    impl Circle {
+      fn area(&self) -> f64 {
+        use std::f64::consts::PI;
+
+        PI * self.radius.powf(2)
+      }
+    }
+
+    impl Rectangle {
+      fn area(&self) -> f64 {
+        self.width * self.height
+      }
+    }
+
+User-defined Types - Enums
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    enum Boolish {
+      Yes,
+      No,
+    }
+
+    enum Shape {
+      Circle(Circle),
+      Rectangle(Rectangle),
+    }
+
+    enum StyleElement {
+      Font(String),
+      RGB(u8, u8, u8),
+    }
+
+Enums and Matching
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    fn shape_area(shape: Shape) -> f64 {
+      match shape {
+        Shape::Circle(c) => c.area(),
+        Shape::Rectangle(r) => r.area(),
+      }
+    }
+
+Also works within methods:
+
+.. code-block:: rust
+
+    impl Shape {
+      fn area(&self) -> f64 {
+        match shape {
+          Shape::Circle(c) => c.area(),
+          Shape::Rectangle(r) => r.area(),
+        }
+      }
+    }
+
+User-defined Abstract Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A type is generic when defined with `type parameters`:
+
+.. code-block:: rust
+
+    struct Spheroid<P> {
+      center: P,
+      radius: f64,
+    }
+
+Now we can create a concrete `Spheroid` with our 2d `Point`:
+
+.. code-block:: rust
+
+    let circle = Spheroid {
+      center: Point::new(2.0, 3.0),
+      radius: 42.0,
+    }
+
+Here's how we write the type of `circle`:
+
+.. code-block:: rust
+
+    let circle: Spheroid<Point> = Spheroid {
+      ...
+    }
+
+Two Fundamental Abstract Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    enum Option<T> {
+      None,
+      Some(T),
+    }
+
+    enum Result<T, E> {
+      Ok(T),
+      Err(E),
+    }
 
 Indices and tables
 ==================

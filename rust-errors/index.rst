@@ -32,7 +32,7 @@ Hello World
 Language Goals
 ~~~~~~~~~~~~~~
 
-- high-level abstractions with "0 cost".
+- high-level abstractions with "0 runtime cost".
 - expressive static type system.
 - strong memory safety.
 - can do low-level / systems / performant applications.
@@ -61,7 +61,7 @@ A Taste of Syntax
 
 .. code-block:: rust
 
-   let names = vec!["alice", "bob", "carol"];
+   let names = ["alice", "bob", "carol"];
 
    for name in names.iter() {
       println!("Hello, {}", name);
@@ -139,12 +139,93 @@ Examples:
 Instantiating Abstract Types
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By supplying `type parameters` and other constraints, abstract types are instantiated to concrete types:
+By supplying `type parameters` which meet some `constraints`, abstract types are instantiated to concrete types:
 
 - ``Vec<String>``
 - ``Fn(u32, u32) -> u32``
 - ``Option<File>``
 
+User-defined Types - Structs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    struct Point {
+      x: f64,
+      y: f64,
+    }
+
+    struct Circle {
+      center: Point,
+      radius: f64,
+    }
+
+    struct Rectangle {
+      topleft: Point,
+      width: f64,
+      height: f64,
+    }
+      
+User-defined Types - Enums
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    enum Boolish {
+      Yes,
+      No,
+    }
+
+    enum Shape {
+      Circle(Circle),
+      Rectangle(Rectangle),
+    }
+
+    enum StyleElement {
+      Font(String),
+      RGB(u8, u8, u8),
+    }
+
+User-defined Types - Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    impl Point {
+      // ...
+
+      fn add_to(&self, other: &Point) -> Point {
+        Point {
+          x: self.x + other.x,
+          y: self.y + other.y,
+        }
+      }
+    }
+
+Note: First time we've seen `&`. These slides gloss over memory management, a big essential topic!
+
+User-defined Types - Associated Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: rust
+
+    impl Point {
+      fn new(x: f64, y: f64) -> Point {
+        Point { x, y }
+      }
+
+      // ...
+    }
+
+Using our type:
+
+.. code-block:: rust
+
+    let p1 = Point::new(3, 4);
+    let p2 = Point::new(1, 2);
+    let p3 = p1.add_to(&p2);
+
+    assert!(p3.x == 4 && p3.y == 6);
 
 Indices and tables
 ==================
